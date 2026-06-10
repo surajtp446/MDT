@@ -1,0 +1,144 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
+const STATS = [
+  { value: '2001', label: 'Established' },
+  { value: '1000+', label: 'Plants built' },
+  { value: '8', label: 'Countries' },
+  { value: '650+', label: 'Clients' },
+];
+
+/* A quiet, architectural line drawing of the processing line:
+   intake hopper → dryer drum → silo. Static, drawn in hairline strokes. */
+function PlantLineArt() {
+  return (
+    <svg
+      viewBox="0 0 420 360"
+      fill="none"
+      className="w-full h-auto"
+      aria-hidden="true"
+    >
+      {/* ground line */}
+      <line x1="20" y1="320" x2="400" y2="320" stroke="#E3DCCD" strokeWidth="1.5" />
+
+      {/* silo */}
+      <path
+        d="M70 320 V150 a45 45 0 0 1 90 0 V320"
+        stroke="#1A1712"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M70 150 h90" stroke="#E3DCCD" strokeWidth="1.5" />
+      <line x1="115" y1="105" x2="115" y2="320" stroke="#E3DCCD" strokeWidth="1" />
+      {/* silo bands */}
+      <line x1="70" y1="200" x2="160" y2="200" stroke="#E3DCCD" strokeWidth="1" />
+      <line x1="70" y1="250" x2="160" y2="250" stroke="#E3DCCD" strokeWidth="1" />
+
+      {/* dryer drum */}
+      <ellipse cx="285" cy="230" rx="70" ry="58" stroke="#1A1712" strokeWidth="1.5" />
+      <ellipse cx="285" cy="230" rx="44" ry="36" stroke="#E3DCCD" strokeWidth="1" />
+      <circle cx="285" cy="230" r="5" fill="#C8952C" />
+      {/* drum legs */}
+      <line x1="245" y1="284" x2="238" y2="320" stroke="#1A1712" strokeWidth="1.5" />
+      <line x1="325" y1="284" x2="332" y2="320" stroke="#1A1712" strokeWidth="1.5" />
+
+      {/* conveyor from silo to drum */}
+      <line x1="160" y1="175" x2="232" y2="205" stroke="#C8952C" strokeWidth="1.5" />
+      {/* three grains travelling the conveyor */}
+      <ellipse cx="178" cy="182" rx="4" ry="2" fill="#C8952C" transform="rotate(22 178 182)" />
+      <ellipse cx="196" cy="190" rx="4" ry="2" fill="#C8952C" transform="rotate(22 196 190)" />
+      <ellipse cx="214" cy="197" rx="4" ry="2" fill="#C8952C" transform="rotate(22 214 197)" />
+
+      {/* output chute */}
+      <line x1="338" y1="250" x2="392" y2="300" stroke="#1A1712" strokeWidth="1.5" />
+      {/* small output pile */}
+      <path d="M372 320 q18 -26 36 0 Z" fill="#ECE3D0" stroke="#1A1712" strokeWidth="1" />
+    </svg>
+  );
+}
+
+export default function HeroSection() {
+  return (
+    <section className="relative bg-brand-paper pt-32 sm:pt-40 pb-20 sm:pb-28">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* copy */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-7"
+          >
+            <span className="text-brand-gold text-xs font-medium tracking-[0.3em] uppercase">
+              Grain Processing Systems · Est. 2001
+            </span>
+            <h1 className="font-black text-[2.6rem] leading-[1.04] sm:text-6xl lg:text-7xl tracking-tight text-brand-ink mt-6 mb-7">
+              Turning raw paddy
+              <br />
+              into market-grade rice.
+            </h1>
+            <p className="text-brand-muted text-lg leading-relaxed max-w-xl mb-9">
+              Mysore Drier Tech designs and builds paddy driers, parboiling
+              units, silos and complete turnkey plants — engineered in Tumkur,
+              running across South Asia and beyond.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 bg-brand-ink text-brand-paper text-sm font-semibold px-7 py-3.5 hover:opacity-90 transition-opacity"
+              >
+                Explore products
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-2 text-brand-ink font-semibold text-sm border-b border-brand-gold/50 pb-1 hover:border-brand-gold transition-colors"
+              >
+                Get a quote
+                <ArrowRight
+                  size={15}
+                  className="text-brand-gold transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* line art */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.25 }}
+            className="lg:col-span-5"
+          >
+            <PlantLineArt />
+          </motion.div>
+        </div>
+
+        {/* stat row */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-16 sm:mt-20 border-t border-brand-line pt-8 grid grid-cols-2 sm:grid-cols-4 gap-y-6"
+        >
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className={`px-2 sm:px-6 ${
+                i !== 0 ? 'sm:border-l sm:border-brand-line' : ''
+              }`}
+            >
+              <div className="font-black text-3xl sm:text-4xl text-brand-ink tracking-tight">
+                {s.value}
+              </div>
+              <div className="text-brand-muted text-xs uppercase tracking-[0.2em] mt-2">
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}

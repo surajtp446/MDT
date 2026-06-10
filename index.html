@@ -1,0 +1,84 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { pageVariants, staggerContainer } from '@/data/animations';
+import useSEO from '@/hooks/useSEO';
+import { PRODUCTS, ProductCard } from '@/components/ProductsSection';
+
+export default function ProductsPage() {
+  useSEO({
+    title: 'Products | MDT — Paddy Dryers, Parboiling Units, Silos & Conveyors',
+    description:
+      'Explore MDT machinery: paddy dryers, parboiling units, grain silos, belt conveyors, chain elevators, and complete turnkey plant design. Built in Tumkur, Karnataka.',
+    canonical: 'https://www.mdtindia.net/products',
+  });
+
+  return (
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="pt-28"
+    >
+      {/* page header */}
+      <section className="relative bg-brand-paper py-16 sm:py-20 overflow-hidden">
+        <span className="absolute -top-4 right-0 font-black text-[10rem] sm:text-[16rem] text-brand-ink/[0.03] leading-none select-none pointer-events-none">
+          MDT
+        </span>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative">
+          <span className="text-brand-gold text-xs tracking-[0.25em] uppercase">
+            Machinery
+          </span>
+          <h1 className="font-black text-5xl sm:text-7xl text-brand-ink tracking-tight mt-4 mb-5">
+            Our products
+          </h1>
+          <p className="text-brand-muted text-lg max-w-2xl">
+            Every machine engineered for uniform drying, low fuel and power
+            consumption, minimal broken rice, and years of low-maintenance
+            service.
+          </p>
+        </div>
+      </section>
+
+      {/* product grid */}
+      <section className="bg-brand-paper pb-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-brand-line"
+          >
+            {PRODUCTS.map((product) => (
+              <ProductCard key={product.name} product={product} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="bg-brand-mist py-20 border-t border-brand-line">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 text-center">
+          <h2 className="font-bold text-3xl sm:text-4xl text-brand-ink mb-4">
+            Not sure which configuration fits your mill?
+          </h2>
+          <p className="text-brand-muted mb-8">
+            Send us your crop and throughput. We&apos;ll spec the right machine
+            or design the whole plant.
+          </p>
+          <Link
+            to="/contact"
+            className="group inline-flex items-center gap-2 bg-brand-ink hover:opacity-90 text-brand-paper font-semibold text-sm px-8 py-4 transition-opacity"
+          >
+            Get a quote
+            <ArrowRight
+              size={17}
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
+      </section>
+    </motion.div>
+  );
+}

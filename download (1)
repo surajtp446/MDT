@@ -1,0 +1,129 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import {
+  Flame,
+  Droplets,
+  Database,
+  Sprout,
+  Nut,
+  MoveUpRight,
+  Factory,
+  Wrench,
+  ArrowRight,
+} from 'lucide-react';
+import { pageVariants, staggerContainer, staggerItem } from '@/data/animations';
+import useSEO from '@/hooks/useSEO';
+
+const SERVICES = [
+  {
+    name: 'Paddy Drying',
+    desc: 'Continuous-flow and batch dryers with heat-exchange design, engineered to your throughput.',
+    Icon: Flame,
+  },
+  {
+    name: 'Paddy Parboiling',
+    desc: 'Soaking, steaming and drying integrated into a single continuous parboiling line.',
+    Icon: Droplets,
+  },
+  {
+    name: 'Grain Silo Storage',
+    desc: 'Flat-bottom and hopper-bottom silos in galvanized steel for safe long-term storage.',
+    Icon: Database,
+  },
+  {
+    name: 'Sunflower Seed Processing',
+    desc: 'Cleaning, drying and seed-handling equipment built for oilseed processors.',
+    Icon: Sprout,
+  },
+  {
+    name: 'Groundnut Processing',
+    desc: 'Shelling, drying and grading equipment for groundnut and pulse lines.',
+    Icon: Nut,
+  },
+  {
+    name: 'Conveying & Elevating',
+    desc: 'Belt conveyors, bucket elevators and screw conveyors for any plant layout.',
+    Icon: MoveUpRight,
+  },
+  {
+    name: 'Complete Turnkey Plants',
+    desc: 'Design, manufacture, install and commission — a running plant handed over to you.',
+    Icon: Factory,
+  },
+  {
+    name: 'After-Sales Service',
+    desc: 'Genuine spare parts and annual maintenance contracts to keep plants running.',
+    Icon: Wrench,
+  },
+];
+
+export default function ServicesPage() {
+  useSEO({
+    title: 'Services | MDT — Drying, Parboiling, Storage & Turnkey Plants',
+    description:
+      'MDT services: paddy drying, parboiling, grain silo storage, sunflower and groundnut processing, conveying, turnkey plant design and after-sales support.',
+    canonical: 'https://www.mdtindia.net/services',
+  });
+
+  return (
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="pt-28"
+    >
+      <section className="relative bg-brand-paper py-16 sm:py-20 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <span className="text-brand-gold text-xs tracking-[0.25em] uppercase">
+            Capabilities
+          </span>
+          <h1 className="font-black text-5xl sm:text-7xl text-brand-ink tracking-tight mt-4 mb-5">
+            What we do
+          </h1>
+          <p className="text-brand-muted text-lg max-w-2xl">
+            From a single dryer to a full processing line — MDT covers every
+            stage of grain handling, drying and storage.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-brand-paper pb-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {SERVICES.map(({ name, desc, Icon }) => (
+              <motion.div
+                key={name}
+                variants={staggerItem}
+                className="group flex flex-col bg-brand-card border border-brand-line hover:border-brand-gold/50 hover:shadow-[0_12px_30px_rgba(26,23,18,0.06)] p-7 transition-all duration-300"
+              >
+                <div className="w-12 h-12 flex items-center justify-center border border-brand-gold/30 bg-brand-gold/[0.06] mb-6">
+                  <Icon size={22} className="text-brand-gold" />
+                </div>
+                <h3 className="font-bold text-lg text-brand-ink mb-2">{name}</h3>
+                <p className="text-brand-muted text-sm leading-relaxed mb-6 flex-1">
+                  {desc}
+                </p>
+                <Link
+                  to="/contact"
+                  className="group/link inline-flex items-center gap-1.5 text-brand-gold text-sm font-semibold"
+                >
+                  Enquire
+                  <ArrowRight
+                    size={14}
+                    className="transition-transform duration-200 group-hover/link:translate-x-1"
+                  />
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </motion.div>
+  );
+}
